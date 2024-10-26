@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 0
+      id: 1
       author: mike tung
       changes:
         - createTable:
@@ -32,3 +32,74 @@ databaseChangeLog:
               - column:
                   name: furthest_status
                   type: uuid
+              - column:
+                  name: last_updated
+                  type: integer
+              - column:
+                  name: tracker
+                  type: uuid
+  - changeSet:
+      id: 2
+      author: mike tung
+      changes:
+        - createTable:
+            tableName: job_status
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: job_status_uniq
+  - changeSet:
+      id: 3
+      author: mike tung
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: uuid
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: user_name_uniq
+  - changeSet:
+      id: 4
+      author: mike tung
+      changes:
+        - createTable:
+            tableName: tracker
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: owner
+                  type: uuid
+                  constraints:
+                    foreignKeyName: tracker_user_fk
+                    referencedTableName: user
+                    referencedColumnNames: id
+  - changeSet:
+      id: 5
+      author: mike tung
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: job
+            baseColumnNames: tracker
+            constraintName: job_tracker_fk
+            referencedTableName: tracker
+            referencedColumnNames: id
