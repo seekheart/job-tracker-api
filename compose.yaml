@@ -1,0 +1,11 @@
+name: job-tracker
+services:
+  postgres:
+    container_name: local-db
+    image: postgres:17
+    environment:
+      POSTGRES_DB: local
+      POSTGRES_PASSWORD: local
+      POSTGRES_USER: local
+    ports:
+      - '5432:5432'
