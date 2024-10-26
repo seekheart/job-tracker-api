@@ -3,3 +3,6 @@ spring:
     user:
       name: local
       password: test
+server:
+  servlet:
+    context-path: /api
