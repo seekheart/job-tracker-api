@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "3.3.5"
     id("io.spring.dependency-management") version "1.1.6"
     kotlin("plugin.jpa") version "1.9.25"
+    kotlin("kapt") version "2.0.21"
 }
 
 group = "dev.seekheart"
@@ -42,6 +43,10 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    //  mapstruct stuff
+    implementation("org.mapstruct:mapstruct:1.6.2")
+    kapt("org.mapstruct:mapstruct-processor:1.6.2")
 }
 
 kotlin {
