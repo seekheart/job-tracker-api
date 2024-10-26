@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0
+      author: mike tung
+      changes:
+        - createTable:
+            tableName: job
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: company_name
+                  type: varchar(256)
+              - column:
+                  name: role
+                  type: varchar(256)
+              - column:
+                  name: salary_min
+                  type: float
+              - column:
+                  name: salary_max
+                  type: float
+              - column:
+                  name: date_applied
+                  type: date
+              - column:
+                  name: current_status
+                  type: uuid
+              - column:
+                  name: furthest_status
+                  type: uuid
