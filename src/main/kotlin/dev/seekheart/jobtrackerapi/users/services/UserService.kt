@@ -1,11 +1,14 @@
 package dev.seekheart.jobtrackerapi.users.services
 
 import dev.seekheart.jobtrackerapi.users.errors.UserAlreadyExistsError
+import dev.seekheart.jobtrackerapi.users.errors.UserNotFoundException
 import dev.seekheart.jobtrackerapi.users.models.UserMapper
 import dev.seekheart.jobtrackerapi.users.models.UserPayload
 import dev.seekheart.jobtrackerapi.users.repositories.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class UserService(private val userRepository: UserRepository, val userMapper: UserMapper) {
@@ -13,6 +16,15 @@ class UserService(private val userRepository: UserRepository, val userMapper: Us
 
     fun findAll(): List<UserPayload> {
         return userRepository.findAll().map { userMapper.userToUserPayload(it) }
+    }
+
+    fun findById(id: UUID): UserPayload {
+        val user = userRepository.findById(id).map { userMapper.userToUserPayload(it) }.getOrNull()
+        if (user == null) {
+            logger.error("User with id $id not found")
+            throw UserNotFoundException(id)
+        }
+        return user
     }
 
     fun save(userPayload: UserPayload): UserPayload {

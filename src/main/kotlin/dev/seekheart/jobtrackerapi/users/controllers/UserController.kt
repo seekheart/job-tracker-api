@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("/users")
@@ -15,6 +16,11 @@ class UserController(val userService: UserService) {
     @GetMapping
     fun findAllUsers(): List<UserPayload> {
         return userService.findAll()
+    }
+
+    @GetMapping("/{id}")
+    fun findById(@PathVariable id: UUID): UserPayload {
+        return userService.findById(id)
     }
 
     @PostMapping
