@@ -1,4 +1,4 @@
-package dev.seekheart.jobtrackerapi.users.errors
+package dev.seekheart.jobtrackerapi.users.exceptions
 
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import java.util.*

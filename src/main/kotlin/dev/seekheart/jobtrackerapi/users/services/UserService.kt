@@ -1,7 +1,7 @@
 package dev.seekheart.jobtrackerapi.users.services
 
-import dev.seekheart.jobtrackerapi.users.errors.UserAlreadyExistsError
-import dev.seekheart.jobtrackerapi.users.errors.UserNotFoundException
+import dev.seekheart.jobtrackerapi.users.exceptions.UserAlreadyExistsException
+import dev.seekheart.jobtrackerapi.users.exceptions.UserNotFoundException
 import dev.seekheart.jobtrackerapi.users.models.UserMapper
 import dev.seekheart.jobtrackerapi.users.models.UserPayload
 import dev.seekheart.jobtrackerapi.users.repositories.UserRepository
@@ -31,7 +31,7 @@ class UserService(private val userRepository: UserRepository, val userMapper: Us
         val record = userMapper.userPayloadToUser(userPayload)
         if (userRepository.findByName(record.name) != null) {
             logger.error("User = ${record.name} already exists.")
-            throw UserAlreadyExistsError(record.name)
+            throw UserAlreadyExistsException(record.name)
         }
         userRepository.save(record)
         return userMapper.userToUserPayload(record)
