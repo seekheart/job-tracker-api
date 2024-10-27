@@ -4,6 +4,6 @@ import org.mapstruct.Mapper
 
 @Mapper(componentModel = "spring")
 interface UserMapper {
-    fun userToUserResponse(user: User): UserResponse
-    fun userResponseToUser(userResponse: UserResponse): User
+    fun userToUserPayload(user: User): UserPayload
+    fun userPayloadToUser(userPayload: UserPayload): User
 }
