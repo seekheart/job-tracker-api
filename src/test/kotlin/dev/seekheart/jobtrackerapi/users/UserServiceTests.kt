@@ -60,4 +60,5 @@ class UserServiceTests {
             userService.findById(targetId)
         }
     }
+
 }
