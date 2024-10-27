@@ -28,4 +28,17 @@ class UserController(val userService: UserService) {
         val payload = userService.save(userPayload)
         return ResponseEntity(payload, HttpStatus.CREATED)
     }
+
+    @PatchMapping("/{id}")
+    fun updateUser(@PathVariable id: UUID, @RequestBody userPayload: UserPayload): ResponseEntity<Unit> {
+        userService.update(id, userPayload)
+        return ResponseEntity.noContent().build()
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteUser(@PathVariable id: UUID): ResponseEntity<Unit> {
+        userService.delete(id)
+        return ResponseEntity.noContent().build()
+    }
+
 }

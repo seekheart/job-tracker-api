@@ -12,3 +12,7 @@ data class User(
     val id: UUID = UUID.randomUUID(),
     var name: String,
 )
+
+fun UserPayload.toUser(): User {
+    return User(id = id ?: UUID.randomUUID(), name = name)
+}
