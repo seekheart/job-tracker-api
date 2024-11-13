@@ -6,3 +6,7 @@ spring:
 server:
   servlet:
     context-path: /api
+
+logging:
+  level:
+    dev.seekheart.jobtrackerapi.*: ${JOB_TRACKER_API_LOG_LEVEL:debug}

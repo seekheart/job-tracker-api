@@ -1,6 +1,9 @@
 package dev.seekheart.jobtrackerapi.users.controllers
 
+import dev.seekheart.jobtrackerapi.users.models.UserLoginPayload
 import dev.seekheart.jobtrackerapi.users.models.UserPayload
+import dev.seekheart.jobtrackerapi.users.models.UserRegisterPayload
+import dev.seekheart.jobtrackerapi.users.models.UserTokenPayload
 import dev.seekheart.jobtrackerapi.users.services.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -24,7 +27,7 @@ class UserController(val userService: UserService) {
     }
 
     @PostMapping
-    fun saveUser(@RequestBody userPayload: UserPayload): ResponseEntity<UserPayload> {
+    fun saveUser(@RequestBody userPayload: UserRegisterPayload): ResponseEntity<UserPayload> {
         val payload = userService.save(userPayload)
         return ResponseEntity(payload, HttpStatus.CREATED)
     }
@@ -39,6 +42,12 @@ class UserController(val userService: UserService) {
     fun deleteUser(@PathVariable id: UUID): ResponseEntity<Unit> {
         userService.delete(id)
         return ResponseEntity.noContent().build()
+    }
+
+    @PostMapping("/auth")
+    fun validateUserLogin(@RequestBody userLoginPayload: UserLoginPayload): UserTokenPayload {
+        logger.debug("Validating user login")
+        return userService.generateUserLoginToken(userLoginPayload)
     }
 
 }

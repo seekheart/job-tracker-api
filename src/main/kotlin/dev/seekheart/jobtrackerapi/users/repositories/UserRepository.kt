@@ -6,4 +6,7 @@ import java.util.*
 
 interface UserRepository : CrudRepository<User, UUID> {
     fun findByName(name: String): User?
+    fun findByEmail(email: String): User?
+    fun existsByToken(token: String): Boolean
+    fun findByToken(token: String): User?
 }

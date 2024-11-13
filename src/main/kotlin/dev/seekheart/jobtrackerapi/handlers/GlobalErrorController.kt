@@ -1,7 +1,7 @@
 package dev.seekheart.jobtrackerapi.handlers
 
-import dev.seekheart.jobtrackerapi.users.exceptions.UserAlreadyExistsException
-import dev.seekheart.jobtrackerapi.users.exceptions.UserNotFoundException
+import dev.seekheart.jobtrackerapi.users.models.UserAlreadyExistsException
+import dev.seekheart.jobtrackerapi.users.models.UserNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
