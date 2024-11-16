@@ -61,7 +61,8 @@ databaseChangeLog:
       author: mike tung
       changes:
         - createTable:
-            tableName: user
+            tableName: app_user
+            remarks: "user is a keyword in postgres so using this to avoid conflicts"
             columns:
               - column:
                   name: id
@@ -70,10 +71,29 @@ databaseChangeLog:
                     primaryKey: true
               - column:
                   name: name
-                  type: uuid
+                  type: varchar(256)
                   constraints:
                     unique: true
                     uniqueConstraintName: user_name_uniq
+              - column:
+                  name: email
+                  type: varchar(256)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: email_uniq
+              - column:
+                  name: password
+                  type: varchar(256)
+                  remarks: "password is bycrypted as to avoid storing sensitive info"
+              - column:
+                  name: token
+                  type: varchar(256)
+              - column:
+                  name: token_expires
+                  type: bigint
+              - column:
+                  name: role
+                  type: varchar(256)
   - changeSet:
       id: 4
       author: mike tung
@@ -91,7 +111,7 @@ databaseChangeLog:
                   type: uuid
                   constraints:
                     foreignKeyName: tracker_user_fk
-                    referencedTableName: user
+                    referencedTableName: app_user
                     referencedColumnNames: id
   - changeSet:
       id: 5
