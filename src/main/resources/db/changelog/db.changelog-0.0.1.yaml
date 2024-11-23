@@ -4,63 +4,6 @@ databaseChangeLog:
       author: mike tung
       changes:
         - createTable:
-            tableName: job
-            columns:
-              - column:
-                  name: id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: company_name
-                  type: varchar(256)
-              - column:
-                  name: role
-                  type: varchar(256)
-              - column:
-                  name: salary_min
-                  type: float
-              - column:
-                  name: salary_max
-                  type: float
-              - column:
-                  name: date_applied
-                  type: date
-              - column:
-                  name: current_status
-                  type: uuid
-              - column:
-                  name: furthest_status
-                  type: uuid
-              - column:
-                  name: last_updated
-                  type: integer
-              - column:
-                  name: tracker
-                  type: uuid
-  - changeSet:
-      id: 2
-      author: mike tung
-      changes:
-        - createTable:
-            tableName: job_status
-            columns:
-              - column:
-                  name: id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: name
-                  type: varchar(100)
-                  constraints:
-                    unique: true
-                    uniqueConstraintName: job_status_uniq
-  - changeSet:
-      id: 3
-      author: mike tung
-      changes:
-        - createTable:
             tableName: app_user
             remarks: "user is a keyword in postgres so using this to avoid conflicts"
             columns:
@@ -95,7 +38,7 @@ databaseChangeLog:
                   name: role
                   type: varchar(256)
   - changeSet:
-      id: 4
+      id: 2
       author: mike tung
       changes:
         - createTable:
@@ -113,13 +56,8 @@ databaseChangeLog:
                     foreignKeyName: tracker_user_fk
                     referencedTableName: app_user
                     referencedColumnNames: id
-  - changeSet:
-      id: 5
-      author: mike tung
-      changes:
-        - addForeignKeyConstraint:
-            baseTableName: job
-            baseColumnNames: tracker
-            constraintName: job_tracker_fk
-            referencedTableName: tracker
-            referencedColumnNames: id
+              - column:
+                  name: name
+                  type: varchar(256)
+                  constraints:
+                    unique: true
