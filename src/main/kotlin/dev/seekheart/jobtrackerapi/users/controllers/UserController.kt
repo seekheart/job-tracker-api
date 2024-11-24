@@ -1,5 +1,7 @@
 package dev.seekheart.jobtrackerapi.users.controllers
 
+import dev.seekheart.jobtrackerapi.trackers.models.TrackerPayload
+import dev.seekheart.jobtrackerapi.trackers.services.TrackerService
 import dev.seekheart.jobtrackerapi.users.models.UserLoginPayload
 import dev.seekheart.jobtrackerapi.users.models.UserPayload
 import dev.seekheart.jobtrackerapi.users.models.UserRegisterPayload
@@ -13,7 +15,7 @@ import java.util.*
 
 @RestController
 @RequestMapping("/users")
-class UserController(val userService: UserService) {
+class UserController(val userService: UserService, val trackerService: TrackerService) {
     private val logger = LoggerFactory.getLogger(UserController::class.java)
 
     @GetMapping
@@ -48,6 +50,20 @@ class UserController(val userService: UserService) {
     fun validateUserLogin(@RequestBody userLoginPayload: UserLoginPayload): UserTokenPayload {
         logger.debug("Validating user login")
         return userService.generateUserLoginToken(userLoginPayload)
+    }
+
+    @PostMapping("/{id}/trackers")
+    fun createTrackerForUser(
+        @PathVariable id: UUID,
+        @RequestBody tracker: TrackerPayload
+    ): ResponseEntity<TrackerPayload> {
+        val response = trackerService.saveTrackerToUser(id, tracker)
+        return ResponseEntity(response, HttpStatus.CREATED)
+    }
+
+    @GetMapping("/{id}/trackers")
+    fun getTrackersForUser(@PathVariable id: UUID): List<TrackerPayload> {
+        return trackerService.getTrackersByUserId(id)
     }
 
 }
