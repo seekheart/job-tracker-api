@@ -1,4 +1,4 @@
-package dev.seekheart.jobtrackerapi.users.repositories
+package dev.seekheart.jobtrackerapi.trackers.repositories
 
 import dev.seekheart.jobtrackerapi.users.models.Tracker
 import org.springframework.data.repository.CrudRepository

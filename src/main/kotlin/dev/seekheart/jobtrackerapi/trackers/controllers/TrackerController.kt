@@ -1,7 +1,7 @@
-package dev.seekheart.jobtrackerapi.users.controllers
+package dev.seekheart.jobtrackerapi.trackers.controllers
 
+import dev.seekheart.jobtrackerapi.trackers.services.TrackerService
 import dev.seekheart.jobtrackerapi.users.models.TrackerPayload
-import dev.seekheart.jobtrackerapi.users.services.TrackerService
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

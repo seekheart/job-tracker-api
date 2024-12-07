@@ -1,7 +1,7 @@
 package dev.seekheart.jobtrackerapi.users.controllers
 
+import dev.seekheart.jobtrackerapi.trackers.services.TrackerService
 import dev.seekheart.jobtrackerapi.users.models.*
-import dev.seekheart.jobtrackerapi.users.services.TrackerService
 import dev.seekheart.jobtrackerapi.users.services.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus

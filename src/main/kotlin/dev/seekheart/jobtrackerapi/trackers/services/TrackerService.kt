@@ -1,8 +1,8 @@
-package dev.seekheart.jobtrackerapi.users.services
+package dev.seekheart.jobtrackerapi.trackers.services
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import dev.seekheart.jobtrackerapi.trackers.repositories.TrackerRepository
 import dev.seekheart.jobtrackerapi.users.models.*
-import dev.seekheart.jobtrackerapi.users.repositories.TrackerRepository
 import dev.seekheart.jobtrackerapi.users.repositories.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
