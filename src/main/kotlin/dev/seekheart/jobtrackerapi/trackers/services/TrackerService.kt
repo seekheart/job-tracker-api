@@ -1,6 +1,5 @@
 package dev.seekheart.jobtrackerapi.trackers.services
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import dev.seekheart.jobtrackerapi.trackers.models.*
 import dev.seekheart.jobtrackerapi.trackers.repositories.TrackerRepository
 import dev.seekheart.jobtrackerapi.users.models.UserNotFoundException
@@ -12,8 +11,7 @@ import java.util.*
 @Service
 class TrackerService(
     val trackerRepository: TrackerRepository,
-    val userRepository: UserRepository,
-    val objectMapper: ObjectMapper
+    val userRepository: UserRepository
 ) {
     val logger = LoggerFactory.getLogger(TrackerService::class.java)
 

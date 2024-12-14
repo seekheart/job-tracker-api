@@ -4,7 +4,7 @@ import java.util.*
 
 data class UserPayload(
     var id: UUID?,
-    val name: String,
+    var name: String,
     var email: String,
     var role: Role
 )
