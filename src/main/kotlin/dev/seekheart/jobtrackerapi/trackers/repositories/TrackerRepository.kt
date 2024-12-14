@@ -1,6 +1,6 @@
 package dev.seekheart.jobtrackerapi.trackers.repositories
 
-import dev.seekheart.jobtrackerapi.users.models.Tracker
+import dev.seekheart.jobtrackerapi.trackers.models.Tracker
 import org.springframework.data.repository.CrudRepository
 import java.util.*
 

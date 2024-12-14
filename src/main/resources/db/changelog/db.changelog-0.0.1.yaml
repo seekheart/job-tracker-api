@@ -61,3 +61,52 @@ databaseChangeLog:
                   type: varchar(256)
                   constraints:
                     unique: true
+  - changeSet:
+      id: 3
+      author: mike tung
+      changes:
+        - createTable:
+            tableName: job
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: company
+                  type: varchar(256)
+              - column:
+                  name: position
+                  type: varchar(256)
+              - column:
+                  name: salary
+                  type: bigint
+              - column:
+                  name: description
+                  type: varchar(256)
+              - column:
+                  name: date_applied
+                  type: bigint
+              - column:
+                  name: last_updated
+                  type: bigint
+              - column:
+                  name: latest_stage
+                  type: varchar(256)
+              - column:
+                  name: did_get_offer
+                  type: varchar(256)
+              - column:
+                  name: tracker_id
+                  type: uuid
+  - changeSet:
+      id: 4
+      author: mike tung
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: job
+            baseColumnNames: tracker_id
+            referencedTableName: tracker
+            referencedColumnNames: id
+            constraintName: tracker_job_fk

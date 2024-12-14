@@ -47,16 +47,10 @@ class UserService(private val userRepository: UserRepository, val objectMapper: 
     }
 
     fun update(id: UUID, userPayload: UserPayload): UserPayload {
-        var record = userRepository.findById(id).getOrNull()
-        if (record != null) {
-            userPayload.id = record.id
-            record = objectMapper.updateValue(record, userPayload)
-            userRepository.save(record)
-            return record.toPayload()
-        } else {
-            logger.error("User = $id not found")
-            throw UserNotFoundException(id)
-        }
+        val oldRecord = userRepository.findById(id).orElseThrow { UserNotFoundException(id) }
+        val newRecord = userPayload.toUser(oldRecord.password)
+        val record = userRepository.save(newRecord)
+        return record.toPayload()
     }
 
     fun delete(id: UUID) {

@@ -1,8 +1,9 @@
 package dev.seekheart.jobtrackerapi.trackers.services
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import dev.seekheart.jobtrackerapi.trackers.models.*
 import dev.seekheart.jobtrackerapi.trackers.repositories.TrackerRepository
-import dev.seekheart.jobtrackerapi.users.models.*
+import dev.seekheart.jobtrackerapi.users.models.UserNotFoundException
 import dev.seekheart.jobtrackerapi.users.repositories.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -45,10 +46,8 @@ class TrackerService(
     }
 
     fun updateTracker(id: UUID, request: TrackerPayload): TrackerPayload {
-        var record = trackerRepository.findById(id).orElseThrow { UserNotFoundException(id) }
-        request.id = record.id
-        record = objectMapper.updateValue(record, request)
-        trackerRepository.save(record)
+        val record = trackerRepository.findById(id).orElseThrow { TrackerNotFoundException(id) }
+        trackerRepository.save(request.toTracker(record.owner))
         return record.toPayload()
     }
 
@@ -59,5 +58,9 @@ class TrackerService(
             logger.error("Tracker with id $id not found")
             throw TrackerNotFoundException(id)
         }
+    }
+
+    fun checkIfExists(trackerId: UUID): Boolean {
+        return trackerRepository.existsById(trackerId)
     }
 }

@@ -1,4 +1,4 @@
-package dev.seekheart.jobtrackerapi.users.models
+package dev.seekheart.jobtrackerapi.trackers.models
 
 import java.util.*
 

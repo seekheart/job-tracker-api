@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class TokenBasedAuthFilter(private val userService: UserService) : OncePerRequestFilter() {
+class TokenBasedAuthFilter(
+    private val userService: UserService
+) : OncePerRequestFilter() {
     val ignoredMatchers: List<AntPathRequestMatcher> = listOf(
         AntPathRequestMatcher("/users/**", HttpMethod.POST.toString()),
     )
@@ -45,6 +47,7 @@ class TokenBasedAuthFilter(private val userService: UserService) : OncePerReques
             return
         }
         filterChain.doFilter(request, response)
+        return
     }
 
     private fun extractToken(request: HttpServletRequest): String? {
