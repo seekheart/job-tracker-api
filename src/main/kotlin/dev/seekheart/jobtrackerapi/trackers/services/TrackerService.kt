@@ -45,8 +45,8 @@ class TrackerService(
 
     fun updateTracker(id: UUID, request: TrackerPayload): TrackerPayload {
         val record = trackerRepository.findById(id).orElseThrow { TrackerNotFoundException(id) }
-        trackerRepository.save(request.toTracker(record.owner))
-        return record.toPayload()
+        val response = trackerRepository.save(request.toTracker(record.owner))
+        return response.toPayload()
     }
 
     fun delete(id: UUID) {

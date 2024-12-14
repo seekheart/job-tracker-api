@@ -1,8 +1,6 @@
 package dev.seekheart.jobtrackerapi.trackers
 
-import dev.seekheart.jobtrackerapi.trackers.models.Tracker
-import dev.seekheart.jobtrackerapi.trackers.models.TrackerNameAlreadyExistsException
-import dev.seekheart.jobtrackerapi.trackers.models.toPayload
+import dev.seekheart.jobtrackerapi.trackers.models.*
 import dev.seekheart.jobtrackerapi.trackers.repositories.TrackerRepository
 import dev.seekheart.jobtrackerapi.trackers.services.TrackerService
 import dev.seekheart.jobtrackerapi.users.models.UserNotFoundException
@@ -85,5 +83,20 @@ class TrackerServiceTests {
         assertThrows<TrackerNameAlreadyExistsException> {
             trackerService.saveTrackerToUser(userId, payload)
         }
+    }
+
+    @Test
+    fun test_updateTracker_should_return_modified_tracker() {
+        val userId = UUID.randomUUID()
+        val tracker = Tracker(owner = userId, name = "test a")
+        val payload = TrackerPayload(id = tracker.id, user = userId, name = "updated test a")
+
+        `when`(trackerRepository.findById(tracker.id)).thenReturn(Optional.of(tracker))
+        `when`(trackerRepository.save(payload.toTracker(tracker.owner)))
+            .thenReturn(payload.toTracker(tracker.owner))
+
+        val result = trackerService.updateTracker(tracker.id, payload)
+
+        assertEquals(payload, result)
     }
 }
