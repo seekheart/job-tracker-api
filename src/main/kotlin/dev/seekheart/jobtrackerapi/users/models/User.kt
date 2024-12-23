@@ -41,8 +41,8 @@ data class User(
     }
 }
 
-fun UserPayload.toUser(): User {
-    return User(id = id ?: UUID.randomUUID(), name = name, email = email, password = "")
+fun UserPayload.toUser(password: String): User {
+    return User(id = id ?: UUID.randomUUID(), name = name, email = email, password = password)
 }
 
 fun UserRegisterPayload.toUser(): User {

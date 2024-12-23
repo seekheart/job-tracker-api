@@ -1,6 +1,8 @@
 package dev.seekheart.jobtrackerapi.handlers
 
-import dev.seekheart.jobtrackerapi.users.models.TrackerNameAlreadyExistsException
+import dev.seekheart.jobtrackerapi.jobs.models.JobNotFoundException
+import dev.seekheart.jobtrackerapi.trackers.models.TrackerNameAlreadyExistsException
+import dev.seekheart.jobtrackerapi.trackers.models.TrackerNotFoundException
 import dev.seekheart.jobtrackerapi.users.models.UserAlreadyExistsException
 import dev.seekheart.jobtrackerapi.users.models.UserNotFoundException
 import org.springframework.http.HttpStatus
@@ -16,7 +18,7 @@ class GlobalErrorController {
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(UserNotFoundException::class)
+    @ExceptionHandler(UserNotFoundException::class, TrackerNotFoundException::class, JobNotFoundException::class)
     fun handleUserNotFoundErrors() {
     }
 }

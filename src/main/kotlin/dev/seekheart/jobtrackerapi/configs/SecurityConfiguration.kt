@@ -15,9 +15,7 @@ class SecurityConfiguration(val tokenBasedAuthFilter: TokenBasedAuthFilter) {
 
     @Bean
     open fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        http.csrf {
-            it.disable()
-        }.authorizeHttpRequests {
+        http.authorizeHttpRequests {
             it.requestMatchers(HttpMethod.POST, "/users/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/users/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
@@ -25,6 +23,9 @@ class SecurityConfiguration(val tokenBasedAuthFilter: TokenBasedAuthFilter) {
         }.addFilterBefore(tokenBasedAuthFilter, BasicAuthenticationFilter::class.java)
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            }
+            .csrf {
+                it.disable()
             }
         return http.build()
     }

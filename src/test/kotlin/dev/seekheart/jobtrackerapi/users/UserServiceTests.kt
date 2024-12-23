@@ -206,5 +206,42 @@ class UserServiceTests {
         assertNull(result, "expected null result")
     }
 
+    @Test
+    fun test_update_should_update_user() {
+        val passwordEncoder = BCryptPasswordEncoder()
+        val user = User(
+            name = "test",
+            email = "test@test.com",
+            password = passwordEncoder.encode("ddd")
+        )
+        val modifiedUserPayload = user.toPayload().apply { name = "updated test user" }
+        val userId = user.id
+
+        `when`(userRepository.findById(userId)).thenReturn(Optional.of(user))
+        `when`(userRepository.save(any())).thenReturn(modifiedUserPayload.toUser(user.password))
+
+        val result = userService.update(userId, modifiedUserPayload)
+
+        assertEquals(modifiedUserPayload, result)
+    }
+
+    @Test
+    fun test_update_should_throw_UserNotFoundException() {
+        val passwordEncoder = BCryptPasswordEncoder()
+        val user = User(
+            name = "test",
+            email = "test@test.com",
+            password = passwordEncoder.encode("ddd")
+        )
+        val modifiedUserPayload = user.toPayload().apply { name = "updated test user" }
+        val userId = user.id
+
+        `when`(userRepository.findById(userId)).thenReturn(Optional.empty())
+
+        assertThrows<UserNotFoundException> {
+            userService.update(userId, modifiedUserPayload)
+        }
+    }
+
 
 }
